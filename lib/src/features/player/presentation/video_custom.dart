@@ -30,9 +30,7 @@ class _VideoCustom extends ConsumerState<VideoCustom>{
   @override
   void initState(){
     super.initState();
-    Future.microtask(() async {
-      await ref.read(thembyControllerProvider).init();;
-    });
+    ref.read(thembyControllerProvider).init();
     enterFullScreen();
     ref.read(controlsServiceProvider.notifier).startPlay(widget.media);
     ref.read(volumeBrightnessServiceProvider.notifier).update();

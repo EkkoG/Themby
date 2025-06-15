@@ -23,7 +23,7 @@ class ThembyController{
   VideoController get controller => videoController;
 
 
-  Future init() async {
+  init() {
     Player player =  Player(
         configuration: PlayerConfiguration(
             bufferSize: 1024 * 1024 * mpvBufferSize,
@@ -31,18 +31,18 @@ class ThembyController{
             logLevel: MPVLogLevel.debug
         )
     );
-    if (Platform.isAndroid) {
-      NativePlayer nativePlayer = player.platform as NativePlayer;
-      final ByteData data = await rootBundle.load("assets/fonts/subfont.ttf");
-      final Uint8List buffer = data.buffer.asUint8List();
-      final Directory directory = await getApplicationSupportDirectory();
-      final String fontsDir = "${directory.path}/fonts";
-      final File file = File("$fontsDir/subfont.ttf");
-      await file.create(recursive: true);
-      await file.writeAsBytes(buffer);
-      nativePlayer.setProperty("sub-fonts-dir", fontsDir);
-      nativePlayer.setProperty("sub-font", "Droid Sans Fallback");
-    }
+    // if (Platform.isAndroid) {
+    //   NativePlayer nativePlayer = player.platform as NativePlayer;
+    //   final ByteData data = await rootBundle.load("assets/fonts/subfont.ttf");
+    //   final Uint8List buffer = data.buffer.asUint8List();
+    //   final Directory directory = await getApplicationSupportDirectory();
+    //   final String fontsDir = "${directory.path}/fonts";
+    //   final File file = File("$fontsDir/subfont.ttf");
+    //   await file.create(recursive: true);
+    //   await file.writeAsBytes(buffer);
+    //   nativePlayer.setProperty("sub-fonts-dir", fontsDir);
+    //   nativePlayer.setProperty("sub-font", "Droid Sans Fallback");
+    // }
 
     videoController = VideoController(
       player,
