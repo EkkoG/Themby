@@ -1,5 +1,3 @@
-
-
 import 'package:dio/dio.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
@@ -31,7 +29,6 @@ class DioInterceptor extends Interceptor{
         displayType: SmartToastType.onlyRefresh,
       );
     }
-    super.onError(err, handler);
     handler.next(err);
   }
 
