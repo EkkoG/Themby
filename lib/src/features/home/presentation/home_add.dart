@@ -137,15 +137,25 @@ class _HomeAddState extends ConsumerState<HomeAddSite> {
                     if (formKey.currentState!.validate()) {
                       SmartDialog.showLoading();
 
-                      Uri uri = Uri.parse(state.hostController.text);
+                      String host = state.hostController.text.trim();
+                      if (!host.contains('://')) {
+                        host = 'http://$host';
+                      }
+                      Uri uri = Uri.parse(host);
 
-                      await ref.read(addEmbySiteProvider(site: Site(
-                        scheme: uri.scheme,
-                        host: uri.host,
-                        port: uri.port,
-                        username: state.usernameController.text,
-                        password: state.passwordController.text,
-                      )).future);
+                      // 如果连不上，则提示用户
+                      try{
+                        await ref.read(addEmbySiteProvider(site: Site(
+                          scheme: uri.scheme,
+                          host: uri.host,
+                          port: uri.port,
+                          username: state.usernameController.text,
+                          password: state.passwordController.text,
+                        )).future);
+                      }catch(e){
+                        SmartDialog.dismiss();
+                        return;
+                      }
 
                       await SmartDialog.showToast('添加成功');
 
