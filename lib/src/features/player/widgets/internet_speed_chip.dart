@@ -28,16 +28,16 @@ class _InternetSpeedChip extends State<InternetSpeedChip>{
 
   void init() async {
 
-    // _subscription = _internetSpeedMeterPlugin.getCurrentInternetSpeed().listen((event) {
-    //   setState(() {
-    //     _currentSpeed = event;
-    //   });
-    // });
+    _subscription = _internetSpeedMeterPlugin.getCurrentInternetSpeed().listen((event) {
+      setState(() {
+        _currentSpeed = event;
+      });
+    });
   }
 
   @override
   void dispose() {
-    // _subscription.cancel();
+    _subscription.cancel();
     super.dispose();
   }
 

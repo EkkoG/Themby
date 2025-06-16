@@ -9,6 +9,7 @@ class MainFlutterWindow: NSWindow {
     self.setFrame(windowFrame, display: true)
 
     RegisterGeneratedPlugins(registry: flutterViewController)
+    InternetSpeedMeterPlugin.register(with: flutterViewController.registrar(forPlugin: "InternetSpeedMeterPlugin"))
 
     super.awakeFromNib()
   }
